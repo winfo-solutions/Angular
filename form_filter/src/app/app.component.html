@@ -1,0 +1,74 @@
+<div [hidden]="submitted"> <h1>SUBMIT FORM</h1>
+   <form (ngSubmit)="onSubmit()" #SubmitForm="ngForm">
+      <div class="form-group">
+              <label for="id">ID</label>
+              <input [(ngModel)]="xid" name="id"  type="text" class="form-control" required #id ="ngModel" maxlength="10">
+  
+              <div class = "alert alert-danger" *ngIf="id.touched && !id.valid">
+                  <div >ID is required.</div>
+              </div>
+  </div>
+       <div class="form-group">
+              <label for="title">TITLE</label>
+              <input  [(ngModel)]="xtitle" name="title"   type="text" class="form-control" required #title ="ngModel" minlength="3" maxlength="10">
+  
+              <div class = "alert alert-danger" *ngIf="title.touched && !title.valid">
+                  <div *ngIf="title.errors?.required">title is required.</div>
+                  <div *ngIf="title.errors.minlength">title should be min {{ title.errors.minlength.requiredLength }} charecters</div>
+              </div>
+  </div>
+      <div class="form-group">
+          <label for="author">AUTHOR</label>
+          <input [(ngModel)]="xauthor" name="author"  type="text" class="form-control" required #author ="ngModel" minlength="3" maxlength="10"  >
+
+          <div class = "alert alert-danger" *ngIf="author.touched && !author.valid">
+              <div *ngIf="author.errors?.required">author is required.</div>
+              <div *ngIf="author.errors.minlength">author should be min {{ author.errors.minlength.requiredLength }} charecters</div>
+          </div>
+  </div>
+  <div class="form-group">
+        <button type="submit" class="btn btn-success" [disabled]="!SubmitForm.form.valid" (click)="submitInfo()">Submit</button>
+           
+        &nbsp;
+        <button type="button" class="btn btn-success" [disabled]="!SubmitForm.form.valid" (click)="deleteInfo()">Delete</button>
+        &nbsp;
+        <button type="button" class="btn btn-primary"  (click)="getInfo()">get</button>
+        <div>
+            <table class="table hover-table" border="3" *ngIf="tableValidation && auth">
+                    <ng2-smart-table [settings]="settings" [source]="obj">
+
+                      
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of obj">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.author }}</td>
+                      </tr>
+                    </tbody>
+                    </ng2-smart-table>
+            </table>
+        
+
+        </div>
+
+
+  </div>
+    
+  
+   
+   
+       
+  </form> 
+</div> 
+
+     
+
+
+
